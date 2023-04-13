@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -6,28 +11,39 @@ body {
   h1 {
     font-size: 36px;
   }
-  nav {
-    background-color: #333;
-    padding: 10px;
-  }
-  nav ul {
+  /* Style the navbar */
+  .navbar {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
   }
-  nav ul li {
-    display: inline;
+  
+  .navbar h1 {
+    color: #fff;
     margin-right: 20px;
   }
-  nav ul li:last-child {
-    margin-right: 0;
+  
+  .navbar ul {
+    display: flex;
+    list-style-type: none;
   }
-  nav ul li a {
-    color: #fff;
+  
+  .navbar li {
+    margin: 0 10px;
+  }
+  
+  .navbar a {
     text-decoration: none;
-    font-size: 18px;
+    color: #fff;
+    padding: 6px 12px;
+    transition: background-color 0.3s ease;
   }
-  nav ul li a:hover {
-    color: #ccc;
+  
+  .navbar a:hover, .navbar a.active {
+    background-color: #555;
+    color: #fff;
   }
   p {
     font-size: 18px;
