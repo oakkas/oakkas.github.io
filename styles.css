@@ -8,9 +8,9 @@ body {
     line-height: 1.6;
   }
 
-  .body{
+.main_body{
     margin: 0px 30px;
-  }
+}
   h1 {
     font-size: 36px;
   }
