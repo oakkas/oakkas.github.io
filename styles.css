@@ -15,12 +15,24 @@ body {
     font-size: 36px;
   }
   /* Style the navbar */
+  /* .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 5px 20px;
+  } */
   .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #333;
     padding: 5px 20px;
+    position: fixed; /* Add this line */
+    top: 0; /* Add this line */
+    left: 0; /* Add this line */
+    width: 100%; /* Add this line */
+    z-index: 1000; /* Add this line (optional, but recommended) */
   }
   
   .navbar h1 {
@@ -52,7 +64,7 @@ body {
   .banner {
     display: flex;
     justify-content: space-between;
-    margin: 0px 10px;
+    margin-top: 7%;
   }
   
   .banner img {
