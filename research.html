@@ -12,48 +12,25 @@
   <pre class="code">
     <code>
         """
-        A class used to represent the Model Registry for Amazon SageMaker.
-    
-        Attributes
-        ----------
-        client : boto3.client
-            A boto3 SageMaker client instance.
-        registry_name : str
-            The name of the SageMaker Model Registry.
-    
-        Methods
-        -------
-        create_model_package_group(name, description, model_package_group_name=None)
-            Creates a Model Package Group in the Model Registry.
-        
-        create_model_package(model_package_group_name, model_data, inference_spec, metadata_properties=None)
-            Creates a Model Package within a Model Package Group in the Model Registry.
-    
-        get_model_package_group(model_package_group_name)
-            Retrieves information about a Model Package Group from the Model Registry.
-        
-        list_model_package_groups(max_results=10, name_contains=None)
-            Lists all Model Package Groups in the Model Registry.
-    
-        delete_model_package_group(model_package_group_name)
-            Deletes a Model Package Group from the Model Registry.
-    
-        Example
-        -------
-        import boto3
-        from sagemaker_model_registry import ModelRegistry
-    
-        sage_client = boto3.client("sagemaker")
-        registry = ModelRegistry(sage_client, "MyModelRegistry")
-    
-        # Create a Model Package Group
-        registry.create_model_package_group("MyModelGroup", "A description of my model group")
-    
-        # Create a Model Package within the Model Package Group
-        model_data = "s3://my_bucket/my_model.tar.gz"
-        inference_spec = {"ContentType": "application/json", "Accept": "application/json"}
-        registry.create_model_package("MyModelGroup", model_data, inference_spec)
-        """
+    Creates a Model Package (version) within a Model Package Group in the SageMaker Model Registry.
+
+    Parameters
+    ----------
+    model_package_group_name : str
+        The name of the Model Package Group in the Model Registry where the Model Package should be created.
+    model_data : str
+        The S3 URI where the model artifacts are stored (e.g., 's3://my_bucket/my_model.tar.gz').
+    inference_spec : dict
+        A dictionary specifying the ContentType and Accept properties for the inference container
+        (e.g., {'ContentType': 'application/json', 'Accept': 'application/json'}).
+    metadata_properties : dict, optional
+        A dictionary of key-value pairs representing custom metadata for the Model Package, by default None.
+
+    Returns
+    -------
+    str
+        The ARN of the created Model Package (version).
+    """
     </code>
     </pre>
   <div id="footer"></div>
