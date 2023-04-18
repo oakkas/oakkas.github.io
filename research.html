@@ -11,26 +11,74 @@
   <h1>Welcome to the Research page</h1>
   <pre class="code">
     <code>
-        """
-    Creates a Model Package (version) within a Model Package Group in the SageMaker Model Registry.
+        import pytest
+from unittest.mock import MagicMock, patch
+from sagemaker_model_registry import SageMakerModelRegistry
 
-    Parameters
-    ----------
-    model_package_group_name : str
-        The name of the Model Package Group in the Model Registry where the Model Package should be created.
-    model_data : str
-        The S3 URI where the model artifacts are stored (e.g., 's3://my_bucket/my_model.tar.gz').
-    inference_spec : dict
-        A dictionary specifying the ContentType and Accept properties for the inference container
-        (e.g., {'ContentType': 'application/json', 'Accept': 'application/json'}).
-    metadata_properties : dict, optional
-        A dictionary of key-value pairs representing custom metadata for the Model Package, by default None.
+@pytest.fixture
+def mock_client():
+    return MagicMock()
 
-    Returns
-    -------
-    str
-        The ARN of the created Model Package (version).
-    """
+@pytest.fixture
+def model_registry(mock_client):
+    return SageMakerModelRegistry(mock_client, "TestModelRegistry")
+
+def test_create_model_package_group(mock_client, model_registry):
+    mock_client.create_model_package_group.return_value = {"ModelPackageGroupArn": "test_arn"}
+    response = model_registry.create_model_package_group("TestModelGroup", "A test model group")
+
+    mock_client.create_model_package_group.assert_called_with(
+        ModelPackageGroupName="TestModelGroup",
+        ModelPackageGroupDescription="A test model group"
+    )
+    assert response == "test_arn"
+
+def test_create_model_version(mock_client, model_registry):
+    mock_client.create_model_package.return_value = {"ModelPackageArn": "test_arn"}
+    model_data = "s3://my_bucket/my_model.tar.gz"
+    inference_spec = {"ContentType": "application/json", "Accept": "application/json"}
+    response = model_registry.create_model_version("TestModelGroup", model_data, inference_spec)
+
+    mock_client.create_model_package.assert_called_with(
+        ModelPackageGroupName="TestModelGroup",
+        ModelPackageDescription='',
+        ModelApprovalStatus='PendingManualApproval',
+        InferenceSpecification={
+            'Containers': [{'ModelDataUrl': model_data, **inference_spec}],
+            'SupportedContentTypes': [inference_spec['ContentType']],
+            'SupportedResponseMIMETypes': [inference_spec['Accept']]
+        }
+    )
+    assert response == "test_arn"
+
+def test_get_model_package_group(mock_client, model_registry):
+    mock_client.describe_model_package_group.return_value = {"ModelPackageGroupArn": "test_arn"}
+    response = model_registry.get_model_package_group("TestModelGroup")
+
+    mock_client.describe_model_package_group.assert_called_with(
+        ModelPackageGroupName="TestModelGroup"
+    )
+    assert response == {"ModelPackageGroupArn": "test_arn"}
+
+def test_list_model_package_groups(mock_client, model_registry):
+    mock_client.list_model_package_groups.return_value = {"ModelPackageGroups": [{"ModelPackageGroupName": "TestModelGroup"}]}
+    response = model_registry.list_model_package_groups()
+
+    mock_client.list_model_package_groups.assert_called_with(
+        MaxResults=10,
+        NameContains=None
+    )
+    assert response == [{"ModelPackageGroupName": "TestModelGroup"}]
+
+def test_delete_model_package_group(mock_client, model_registry):
+    mock_client.delete_model_package_group.return_value = None
+    response = model_registry.delete_model_package_group("TestModelGroup")
+
+    mock_client.delete_model_package_group.assert_called_with(
+        ModelPackageGroupName="TestModelGroup"
+    )
+    assert response == None
+
     </code>
     </pre>
   <div id="footer"></div>
