@@ -3,6 +3,10 @@
     padding: 0%;
     box-sizing: border-box;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+  
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -116,6 +120,36 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+p, li {
+  font-size: 18px;
+  line-height: 1.8; /* Increase line-height */
+  margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 20px; /* Add margin-bottom to headings */
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold; /* Add font-weight */
+}
+
+h2 {
+  font-size: 30px; /* Adjust font size */
+  font-weight: bold; /* Add font-weight */
+}
+
+.navbar a:focus, .navbar a:hover, .navbar a.active {
+  background-color: #555;
+  color: #fff;
+  outline: none; /* Remove the default browser outline */
+}
+
+a:focus {
+  outline: 2px solid #3498db; /* Add a custom outline for focused links */
+}
+
 .contact {
   flex-basis: calc(33.33% - 20px);
   /* background-color: #f1f1f1; */
@@ -173,3 +207,112 @@ footer {
   padding: 20px;
   font-size: 0.9em;
 }
+
+@media (min-width: 1200px) {
+  /* Styles for larger screens */
+  .main_body {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  .banner {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .banner img {
+    width: 40%;
+    max-height: 500px;
+  }
+
+  .intro {
+    font-size: 2em;
+    line-height: 1.8;
+    max-width: 1600px;
+  }
+
+  .intro p {
+    font-size: 26px;
+  }
+
+  .code {
+    margin: 50px 80px;
+  }
+}
+
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  /* Styles for smaller screens */
+  .main_body {
+    padding: 0 15px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .name-image-container {
+    margin-bottom: 10px;
+  }
+
+  .navbar ul {
+    justify-content: center;
+  }
+
+  .navbar li {
+    margin: 0 5px;
+  }
+
+  .navbar a {
+    padding: 4px 8px;
+  }
+
+  .banner {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .banner img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: scale-down;
+    margin-top: 1%;
+    margin-bottom: 2%;
+  }
+
+  .section {
+    flex-direction: column;
+    margin: 20px 0;
+  }
+
+  .skills, .experience, .projects, .contact {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+  }
+
+  .intro {
+    font-size: 1.6em;
+    line-height: 1.6;
+  }
+
+  .intro p {
+    font-size: 20px;
+  }
+
+  .download-resume {
+    font-size: 1.6em;
+    line-height: 1.6;
+  }
+
+  .code {
+    margin: 30px;
+  }
+}
+
+
